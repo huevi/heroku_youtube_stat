@@ -1,2 +1,2 @@
-# heroku_youtube_stat
+# youtube_stat_heroku_app
 youtube_stats
