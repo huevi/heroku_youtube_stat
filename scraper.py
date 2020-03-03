@@ -16,14 +16,13 @@ header = ["video_id"] + snippet_features + ["trending_date", "tags", "view_count
                                             "ratings_disabled", "description"]
 
 
-def setup(api_path, code_path):
-    with open(api_path, 'r') as file:
-        api_key = file.readline()
+def setup(code_path):
+
 
     with open(code_path) as file:
         country_codes = [x.rstrip() for x in file]
 
-    return api_key, country_codes
+    return country_codes
 
 
 def prepare_feature(feature):
@@ -142,13 +141,13 @@ def get_data():
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--key_path', help='Path to the file containing the api key, by default will use api_key.txt in the same directory', default='api_key.txt')
+    # parser.add_argument('--key_path', help='Path to the file containing the api key, by default will use api_key.txt in the same directory', default='api_key.txt')
     parser.add_argument('--country_code_path', help='Path to the file containing the list of country codes to scrape, by default will use country_codes.txt in the same directory', default='country_codes.txt')
     parser.add_argument('--output_dir', help='Path to save the outputted files in', default='output/')
 
     args = parser.parse_args()
 
     output_dir = args.output_dir
-    api_key, country_codes = setup(args.key_path, args.country_code_path)
-
+    country_codes = setup(args.country_code_path)
+    api_key = os.environ.get('YTUBE')
     get_data()
